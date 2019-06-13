@@ -7,11 +7,12 @@
     "sort-packages": true
   },
   "require": {
-    "php": ">=7.1",
+    "php": "^7.1",
     "bcosca/fatfree": "3.*",
     "symfony/polyfill-php73": "^1.10",
     "symfony/polyfill-mbstring": "^1.10",
-    "nette/utils": "^3.0"
+    "nette/utils": "^3.0",
+    "ext-mbstring": "*"
   },
   "autoload": {
     "psr-4": {

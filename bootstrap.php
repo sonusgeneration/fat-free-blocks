@@ -7,8 +7,10 @@ error_reporting(E_ALL);
 use \Blocks\Foundation\Kernel;
 
 # Define the key...
-defined('BLOCKS_KEY') OR define('BLOCKS_KEY', sha1(uniqid("", TRUE)));
-defined('FILENAME_CONSTANTS') OR define('FILENAME_CONSTANTS', "constants.php");
+defined('BLOCKS_KEY') 
+    OR define('BLOCKS_KEY', sha1(uniqid("", TRUE)));
+defined('FILENAME_CONSTANTS') 
+    OR define('FILENAME_CONSTANTS', "constants.php");
 
 # Require the constants...
 require_once(FILENAME_CONSTANTS);

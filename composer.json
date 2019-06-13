@@ -19,5 +19,10 @@
       "Blocks\\": "Blocks/"
     }
   },
-  "prefer-stable": true
+  "prefer-stable": true,
+  "scripts": {
+    "post-install-cmd": [
+      "Blocks\\Installation\\ComposerScripts::postInstall"
+    ]
+  }
 }

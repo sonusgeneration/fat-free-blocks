@@ -9,9 +9,7 @@
   "require": {
     "php": "^7.1",
     "bcosca/fatfree": "3.*",
-    "symfony/polyfill-php73": "^1.10",
-    "symfony/polyfill-mbstring": "^1.10",
-    "nette/utils": "^3.0",
+    "league/flysystem": "*",
     "ext-mbstring": "*"
   },
   "autoload": {

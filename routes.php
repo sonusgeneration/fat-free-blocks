@@ -2,6 +2,9 @@
 declare(strict_types=1);
 
 use \Blocks\Foundation\Kernel;
+use \League\Flysystem\Filesystem;
+use \League\Flysystem\Adapter\Local;
+use \Blocks\Foundation\Http\HtmlResponse;
 use \Blocks\Foundation\Http\JsonResponse;
 use \Blocks\Foundation\Http\XmlResponse;
 
@@ -20,8 +23,11 @@ if(!defined('BLOCKS_KEY')) {
  */
 (Kernel::getRouter())->setRoute('GET /', function () {
     # Sample HTML response...
-    echo "<pre>";
-    print_r(Kernel::getCore());
+    $filesystem = new FileSystem(new Local(__DIR__));
+
+    $HtmlResponse = new HtmlResponse();
+    $HtmlResponse->setContent($filesystem->read('Views/sample-view.html'));
+    $HtmlResponse->send();
 
 })->setRoute('GET /json', function () {
     # Sample JSON response...

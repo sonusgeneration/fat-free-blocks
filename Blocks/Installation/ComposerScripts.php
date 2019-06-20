@@ -52,6 +52,7 @@ class ComposerScripts {
         $filesystem->copy(self::PACKAGE_PATH . "prerequisites.php", "prerequisites.php");
         $filesystem->copy(self::PACKAGE_PATH . "robots.txt", "robots.txt");
         $filesystem->copy(self::PACKAGE_PATH . "routes.php", "routes.php");
+        $filesystem->copy(self::PACKAGE_PATH . "sample-view.html", "Views/sample-view.html");
     }
 
 }

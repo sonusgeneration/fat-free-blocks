@@ -59,7 +59,7 @@ abstract class Response {
      *  Abort
      *  @since v1.0.0
      */
-    public final function abort() {
+    public final function abort() : void {
         (Kernel::getCore())->abort();
     }
 
@@ -67,7 +67,7 @@ abstract class Response {
      *  Send
      *  @since v1.0.0
      */
-    public function send() {
+    public function send() : void {
         $this->_sendHeaders();
         $this->_sendContent();
     }
@@ -76,7 +76,7 @@ abstract class Response {
      *  Send Headers
      *  @since v1.0.0
      */
-    protected final function _sendHeaders() {
+    protected final function _sendHeaders() : void {
         header('Content-Type: ' . $this->_content_type);
     }
 
@@ -94,7 +94,7 @@ abstract class Response {
      *  Send Content
      *  @since v1.0.0
      */
-    abstract protected function _sendContent();
+    abstract protected function _sendContent() : void;
 
     /*
      *  Set Content

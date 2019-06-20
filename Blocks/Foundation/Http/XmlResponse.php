@@ -28,7 +28,7 @@ final class XmlResponse extends Response implements IResponse {
      *  @since v1.0.0
      */
     public function __construct() {
-        $this->_content_type = "text/xml";
+        $this->_content_type = "text/xml; charset=utf-8";
         parent::__construct();
     }
 
@@ -44,7 +44,7 @@ final class XmlResponse extends Response implements IResponse {
      *  Array to Xml
      *  @since v1.0.0
      */
-    private function _build_xml($data, &$xml) {
+    private function _build_xml(array $data, SimpleXMLElement &$xml) : void {
         foreach($data as $key => $value) {
             if(is_array($value)) {
                 $key = is_numeric($key) ? "item" . $key : $key;
@@ -62,7 +62,7 @@ final class XmlResponse extends Response implements IResponse {
      *  Send Content
      *  @since v1.0.0
      */
-    protected final function _sendContent() {
+    protected final function _sendContent() : void {
         $xml = new SimpleXMLElement("<?xml version=\"1.0\"?>" . $this->_root_element);
         $this->_build_xml($this->_content, $xml);
 

@@ -19,28 +19,26 @@ if(!defined('BLOCKS_KEY')) {
  *  Here we go!
  */
 (Kernel::getRouter())->setRoute('GET /', function () {
+    # Sample HTML response...
     echo "<pre>";
     print_r(Kernel::getCore());
+
 })->setRoute('GET /json', function () {
-    $JsonResponse = JsonResponse::instance();
-    $JsonResponse->setContent(['status' => "Success."]);
+    # Sample JSON response...
+    $JsonResponse = new JsonResponse();
+    $JsonResponse->setContent([
+        'status'        => "success",
+        'response_type' => "json"
+    ]);
     $JsonResponse->send(JsonResponse::PRETTY_PRINT);
+
 })->setRoute('GET /xml', function () {
-    $XmlResponse = XmlResponse::instance();
-
-    $data = [];
-    $data[] = [
-        'id'       =>  '001',
-        'name'     =>  'Mifas',
-        'subjects' => ['English','Maths','IT']
-    ];
-    $data[] = [
-        'id'    =>  '002',
-        'name'  =>  'Ijas',
-        'subjects'  => ['Science','History','Social']
-
-    ];
-
-    $XmlResponse->setContent($data);
+    #Sample XML response...
+    $XmlResponse = new XmlResponse();
+    $XmlResponse->setContent([
+        'status'        =>  'success',
+        'response_type' =>  'xml',
+    ]);
     $XmlResponse->send();
+
 });

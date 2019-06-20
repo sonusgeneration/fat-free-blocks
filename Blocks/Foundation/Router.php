@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace Blocks\Foundation;
 
 use \Base;
-use \Nette\SmartObject;
 
 if(!defined('BLOCKS_KEY')) {
     exit('Access denied.');
@@ -18,13 +17,7 @@ if(!defined('BLOCKS_KEY')) {
  *  @see \Base
  *  @see \Prefab
  */
-final class Router {
-
-    /**
-     *  @see \Nette\SmartObject
-     */
-    use SmartObject;
-     
+final class Router {     
 
     /**
      *  @property \Base $_Base

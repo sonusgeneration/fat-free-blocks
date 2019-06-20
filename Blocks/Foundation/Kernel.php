@@ -11,7 +11,6 @@ use \Cache;
 use \PDO;
 use \DB\SQL;
 use \DB\SQL\Session as SessionHandler;
-use \Nette\SmartObject;
 use \Blocks\Foundation\Router;
 use \Blocks\Foundation\Http\Request;
 use \Blocks\Foundation\Session;
@@ -36,11 +35,6 @@ if(!defined('BLOCKS_KEY')) {
  *  @see \Blocks\Foundation\Session
  */
 final class Kernel extends Prefab {
-
-    /**
-     *  @see \Nette\SmartObject
-     */
-    use SmartObject;
 
     /**
      *  Class Constructor

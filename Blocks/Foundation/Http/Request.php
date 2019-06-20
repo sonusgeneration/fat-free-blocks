@@ -5,7 +5,6 @@ namespace Blocks\Foundation\Http;
 
 use \Base;
 use \JsonSerializable;
-use \Nette\SmartObject;
 
 if(!defined('BLOCKS_KEY')) {
     exit('Access denied.');
@@ -21,11 +20,6 @@ if(!defined('BLOCKS_KEY')) {
  *  @see \JsonSerializable
  */
 final class Request implements JsonSerializable {
-
-    /**
-     *  @see \Nette\SmartObject
-     */
-    use SmartObject;
 
     /**
      *  @const int OUTPUT_RAW

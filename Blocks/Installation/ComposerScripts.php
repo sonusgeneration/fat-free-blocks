@@ -29,12 +29,12 @@ final class ComposerScripts {
     const PACKAGE_PATH = "vendor/sonusgeneration/fat-free-blocks/";
 
     /**
-     *  Post Install
+     *  Blocks Install
      *  @since v1.0.0
      *
      *  @param \Composer\Script\Event $event
      */
-    public static function postInstall(Event $event) {
+    public static function blocksInstall(Event $event) {
         require_once($event->getComposer()->getConfig()->get('vendor-dir').'/autoload.php');
 
         # Create the filesystem...
@@ -81,4 +81,33 @@ final class ComposerScripts {
         $filesystem->copy(self::PACKAGE_PATH . "Controllers/HomeController.php", "Controllers/HomeController.php");
     }
 
+    /**
+     *  Blocks Uninstall
+     *  @since v1.0.0
+     *
+     *  @param \Composer\Script\Event $event
+     */
+    public static function blocksUninstall(Event $event) {
+        require_once($event->getComposer()->getConfig()->get('vendor-dir').'/autoload.php');
+
+        # Create the filesystem...
+        $filesystem = new Filesystem(new Local(self::ROOT_PATH));
+
+        # Remove the files...
+        $filesystem->delete(".htaccess");
+        $filesystem->delete("bootstrap.php");
+        $filesystem->delete("constants.php");
+        $filesystem->delete("humans.txt");
+        $filesystem->delete("index.php");
+        $filesystem->delete("prerequisites.php");
+        $filesystem->delete("robots.txt");
+        $filesystem->delete("routes.php");
+
+        # Remove the directories...
+        $filesystem->deleteDir("Controllers");
+        $filesystem->deleteDir("Models");
+        $filesystem->deleteDir("Views");
+        $filesystem->deleteDir("tmp");
+        $filesystem->deleteDir("config");
+    }
 }

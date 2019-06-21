@@ -15,7 +15,6 @@ if(!defined('BLOCKS_KEY')) {
  *  @author Christopher Rains <christopher.rains@sonusgeneration.com>
  *
  *  @see \Base
- *  @see \Prefab
  */
 final class Router {     
 
@@ -67,7 +66,7 @@ final class Router {
      *  Get Path
      *  @since v1.0.0
      *
-     *  return string
+     *  @return string
      */
     public function getPath() : string {
         return $this->_Base->get('PATH');

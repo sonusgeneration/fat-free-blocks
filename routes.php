@@ -2,11 +2,8 @@
 declare(strict_types=1);
 
 use \Blocks\Foundation\Kernel;
-use \League\Flysystem\Filesystem;
-use \League\Flysystem\Adapter\Local;
-use \Blocks\Foundation\Http\HtmlResponse;
+use \Controllers\HomeController;
 use \Blocks\Foundation\Http\JsonResponse;
-use \Blocks\Foundation\Http\XmlResponse;
 
 if(!defined('BLOCKS_KEY')) {
     exit('Access denied.');
@@ -23,28 +20,14 @@ if(!defined('BLOCKS_KEY')) {
  */
 (Kernel::getRouter())->setRoute('GET /', function () {
     # Sample HTML response...
-    $filesystem = new FileSystem(new Local(__DIR__));
-
-    $HtmlResponse = new HtmlResponse();
-    $HtmlResponse->setContent($filesystem->read('Views/sample-view.html'));
-    $HtmlResponse->send();
-
+    $Response = (new HomeController())->ActionHtml();
+    $Response->send();
 })->setRoute('GET /json', function () {
     # Sample JSON response...
-    $JsonResponse = new JsonResponse();
-    $JsonResponse->setContent([
-        'status'        => "success",
-        'response_type' => "json"
-    ]);
-    $JsonResponse->send(JsonResponse::PRETTY_PRINT);
-
+    $Response = (new HomeController())->ActionJson();
+    $Response->send(JsonResponse::PRETTY_PRINT);
 })->setRoute('GET /xml', function () {
     #Sample XML response...
-    $XmlResponse = new XmlResponse();
-    $XmlResponse->setContent([
-        'status'        =>  'success',
-        'response_type' =>  'xml',
-    ]);
-    $XmlResponse->send();
-
+    $Response = (new HomeController())->ActionXml();
+    $Response->send();
 });

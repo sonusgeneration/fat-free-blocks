@@ -1,15 +1,39 @@
 <?php
+declare(strict_types=1);
+
 namespace Blocks\Installation;
 
 use \Composer\Script\Event;
 use \League\Flysystem\Filesystem;
 use \League\Flysystem\Adapter\Local;
 
-class ComposerScripts {
+/**
+ *  COMPOSER SCRIPTS
+ *  @since v1.0.0
+ *  @author Christopher Rains <christopher.rains@sonusgeneration.com>
+ *
+ *  @see \Composer\Script\Event
+ *  @see \League\Flysystem\Filesystem
+ *  @see \League\Flysystem\Adapter\Local
+ */
+final class ComposerScripts {
 
+    /**
+     *  @const string ROOT_PATH
+     */
     const ROOT_PATH = __DIR__ . "/../../../../../";
+
+    /**
+     *  @const string PACKAGE_PATH
+     */
     const PACKAGE_PATH = "vendor/sonusgeneration/fat-free-blocks/";
 
+    /**
+     *  Post Install
+     *  @since v1.0.0
+     *
+     *  @param \Composer\Script\Event $event
+     */
     public static function postInstall(Event $event) {
         require_once($event->getComposer()->getConfig()->get('vendor-dir').'/autoload.php');
 
@@ -52,7 +76,9 @@ class ComposerScripts {
         $filesystem->copy(self::PACKAGE_PATH . "prerequisites.php", "prerequisites.php");
         $filesystem->copy(self::PACKAGE_PATH . "robots.txt", "robots.txt");
         $filesystem->copy(self::PACKAGE_PATH . "routes.php", "routes.php");
-        $filesystem->copy(self::PACKAGE_PATH . "sample-view.html", "Views/sample-view.html");
+        $filesystem->copy(self::PACKAGE_PATH . "Views/sample-view.html", "Views/sample-view.html");
+        $filesystem->copy(self::PACKAGE_PATH . "Controllers/BaseController.php", "Controllers/BaseController.php");
+        $filesystem->copy(self::PACKAGE_PATH . "Controllers/HomeController.php", "Controllers/HomeController.php");
     }
 
 }

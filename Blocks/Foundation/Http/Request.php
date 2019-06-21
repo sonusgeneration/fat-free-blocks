@@ -5,6 +5,7 @@ namespace Blocks\Foundation\Http;
 
 use \Base;
 use \JsonSerializable;
+use \Blocks\Foundation\Cookie;
 
 if(!defined('BLOCKS_KEY')) {
     exit('Access denied.');
@@ -267,7 +268,12 @@ final class Request implements JsonSerializable {
      *  @return array
      */
     public function getCookies() : array {
-        return $this->_cookies;
+        $cookies = [];
+        foreach($this->_cookies as $name => $value) {
+            $cookies[] = new Cookie($name, $value);
+        }
+
+        return $cookies;
     }
 
     /**
@@ -275,10 +281,10 @@ final class Request implements JsonSerializable {
      *  @since v1.0.0
      *  
      *  @param string $name
-     *  @return string|NULLABLE
+     *  @return Cookie|NULLABLE
      */
-    public function getCookie(string $name) : ?string {
-        return (isset($this->_cookies[$name])) ? $this->_cookies[$name] : NULL;
+    public function getCookie(string $name) : ?Cookie {
+        return (isset($this->_cookies[$name])) ? new Cookie($name, $this->_cookies[$name]) : NULL;
     }
 
     /**

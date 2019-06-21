@@ -44,11 +44,11 @@ final class HomeController extends BaseController {
      */
     public function ActionHtml() : Response {
         # Create the filesystem...
-        $filesystem = new FileSystem(new Local(__DIR__));
+        $filesystem = new FileSystem(new Local(__DIR__ . "/../Views/"));
 
         # Create the response...
         $Response = new HtmlResponse();
-        $Response->setContent($filesystem->read('Views/sample-view.html'));
+        $Response->setContent($filesystem->read('sample-view.html'));
 
         # Return the response...
         return $Response;

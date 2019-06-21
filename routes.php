@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 use \Blocks\Foundation\Kernel;
 use \Controllers\HomeController;
-use \Blocks\Foundation\Http\JsonResponse;
 
 if(!defined('BLOCKS_KEY')) {
     exit('Access denied.');
@@ -25,7 +24,7 @@ if(!defined('BLOCKS_KEY')) {
 })->setRoute('GET /json', function () {
     # Sample JSON response...
     $Response = (new HomeController())->ActionJson();
-    $Response->send(JsonResponse::PRETTY_PRINT);
+    $Response->send($Response::PRETTY_PRINT);
 })->setRoute('GET /xml', function () {
     #Sample XML response...
     $Response = (new HomeController())->ActionXml();

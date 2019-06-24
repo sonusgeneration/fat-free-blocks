@@ -48,24 +48,22 @@ final class Router {
      *  Add Name
      *  @since v1.0.0
      *
-     *  @param string $route
      *  @param string $name
      *  @return string
      */
-    private function addName(string $route, string $name) : string {
-        return $route . "@" . $name . ": ";
+    private function addName(string $name) : string {
+        return "@" . $name . ": ";
     }
 
     /**
      *  Add Pattern
      *  @since v1.0.0
      *
-     *  @param string $route
      *  @param string $pattern
      *  @return string
      */
-    private function addPattern(string $route, string $pattern) : string {
-        return $route . "/" . ltrim(str_replace(["{:", "}"], ["@", ""], $pattern), "/");
+    private function addPattern(string $pattern) : string {
+        return "/" . ltrim(str_replace(["{:", "}"], ["@", ""], $pattern), "/");
     }
 
     /**
@@ -89,20 +87,20 @@ final class Router {
      *  @param ?string $name
      *  @return Router
      */
-    public function get(string $pattern, callable $callback, ?string $name) : Router {
+    public function get(string $pattern, callable $callback, ?string $name = NULL) : Router {
         # Start route...
         $route = self::GET . " ";
         
         # Add name...
         if(!empty($name)) {
-            $route = $this->addName($route, $name);
+            $route .= $this->addName($name);
         }
 
         # Add Pattern
-        $route = $this->addPattern($route, $pattern);
+        $route .= $this->addPattern($pattern);
 
         # Set route...
-        $this->setRoute($pattern, $callback);
+        $this->setRoute($route, $callback);
 
         return $this;
     }

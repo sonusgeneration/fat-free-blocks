@@ -73,10 +73,8 @@ final class Router {
         if(!empty($name)) {
             $route .= "@" . $name . ": ";
         }
-
         $route .= "/" . ltrim(str_replace(["{", "}"], ["@", ""], $pattern), "/");
 
-        echo $route . "<br />";
         $this->_Base->route($route, $callback);
     }
 

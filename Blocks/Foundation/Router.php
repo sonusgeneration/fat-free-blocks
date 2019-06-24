@@ -29,6 +29,21 @@ final class Router {
     const GET = "GET";
 
     /**
+     *  @const string POST
+     */
+    const POST = "POST";
+
+    /**
+     *  @const string PUT
+     */
+    const PUT = "PUT";
+
+    /**
+     *  @const string DELETE
+     */
+    const DELETE = "DELETE";
+
+    /**
      *  Class Constructor
      *  @since v1.0.0
      */
@@ -45,37 +60,24 @@ final class Router {
     }
 
     /**
-     *  Add Name
-     *  @since v1.0.0
-     *
-     *  @param string $name
-     *  @return string
-     */
-    private function addName(string $name) : string {
-        return "@" . $name . ": ";
-    }
-
-    /**
-     *  Add Pattern
-     *  @since v1.0.0
-     *
-     *  @param string $pattern
-     *  @return string
-     */
-    private function addPattern(string $pattern) : string {
-        return "/" . ltrim(str_replace(["{:", "}"], ["@", ""], $pattern), "/");
-    }
-
-    /**
      *  Set Route
      *  @since v1.0.0
      *
+     *  @param string $route
      *  @param string $pattern
      *  @param callable $callable
+     *  @param string|NULL $name
      *  @return Router
      */
-    private function setRoute(string $pattern, callable $callback) : void {
-        $this->_Base->route($pattern, $callback);
+    private function setRoute(string $route, string $pattern, callable $callback, ?string $name = NULL) : void {
+        if(!empty($name)) {
+            $route .= "@" . $name . ": ";
+        }
+
+        $route .= "/" . ltrim(str_replace(["{", "}"], ["@", ""], $pattern), "/");
+
+        echo $route . "<br />";
+        $this->_Base->route($route, $callback);
     }
 
     /**
@@ -84,24 +86,53 @@ final class Router {
      *
      *  @param string $pattern
      *  @param callable $callback
-     *  @param ?string $name
+     *  @param string|NULL $name
      *  @return Router
      */
     public function get(string $pattern, callable $callback, ?string $name = NULL) : Router {
-        # Start route...
-        $route = self::GET . " ";
-        
-        # Add name...
-        if(!empty($name)) {
-            $route .= $this->addName($name);
-        }
+        $this->setRoute(self::GET . " ", $pattern, $callback, $name);
+        return $this;
+    }
 
-        # Add Pattern
-        $route .= $this->addPattern($pattern);
+    /**
+     *  Post
+     *  @since v1.0.0
+     *
+     *  @param string $pattern
+     *  @param callable $callback
+     *  @param string|NULL $name
+     *  @return Router
+     */
+    public function post(string $pattern, callable $callback, ?string $name = NULL) : Router {
+        $this->setRoute(self::POST . " ", $pattern, $callback, $name);
+        return $this;
+    }
 
-        # Set route...
-        $this->setRoute($route, $callback);
+    /**
+     *  Put
+     *  @since v1.0.0
+     *
+     *  @param string $pattern
+     *  @param callable $callback
+     *  @param string|NULL $name
+     *  @return Router
+     */
+    public function put(string $pattern, callable $callback, ?string $name = NULL) : Router {
+        $this->setRoute(self::PUT . " ", $pattern, $callback, $name);
+        return $this;
+    }
 
+    /**
+     *  Delete
+     *  @since v1.0.0
+     *
+     *  @param string $pattern
+     *  @param callable $callback
+     *  @param string|NULL $name
+     *  @return Router
+     */
+    public function delete(string $pattern, callable $callback, ?string $name = NULL) : Router {
+        $this->setRoute(self::DELETE . " ", $pattern, $callback, $name);
         return $this;
     }
 

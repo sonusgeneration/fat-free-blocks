@@ -21,10 +21,17 @@ if(!defined('BLOCKS_KEY')) {
     # Sample HTML response...
     $Response = (new HomeController())->ActionHtml();
     $Response->send();
-})->get('json', function () {
+})->get('json/{print}', function ($app, $params) {
     # Sample JSON response...
     $Response = (new HomeController())->ActionJson();
-    $Response->send($Response::PRETTY_PRINT);
+    switch(intval($params['print'])) {
+        case 1:
+            $Response->send();
+            break;
+        case 2:
+            $Response->send($Response::PRETTY_PRINT);
+            break;
+    }
 })->get('xml', function () {
     #Sample XML response...
     $Response = (new HomeController())->ActionXml();

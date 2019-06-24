@@ -24,6 +24,11 @@ final class Router {
     private $_Base = NULL;
 
     /**
+     *  @const string GET
+     */
+    const GET = "GET";
+
+    /**
      *  Class Constructor
      *  @since v1.0.0
      */
@@ -40,6 +45,30 @@ final class Router {
     }
 
     /**
+     *  Add Name
+     *  @since v1.0.0
+     *
+     *  @param string $route
+     *  @param string $name
+     *  @return string
+     */
+    private function addName(string $route, string $name) : string {
+        return $route . "@" . $name . ": ";
+    }
+
+    /**
+     *  Add Pattern
+     *  @since v1.0.0
+     *
+     *  @param string $route
+     *  @param string $pattern
+     *  @return string
+     */
+    private function addPattern(string $route, string $pattern) : string {
+        return $route . "/" . ltrim(str_replace(["{:", "}"], ["@", ""], $pattern), "/");
+    }
+
+    /**
      *  Set Route
      *  @since v1.0.0
      *
@@ -47,10 +76,36 @@ final class Router {
      *  @param callable $callable
      *  @return Router
      */
-    public function setRoute(string $pattern, callable $callback) : Router {
+    private function setRoute(string $pattern, callable $callback) : void {
         $this->_Base->route($pattern, $callback);
+    }
+
+    /**
+     *  Get
+     *  @since v1.0.0
+     *
+     *  @param string $pattern
+     *  @param callable $callback
+     *  @param ?string $name
+     *  @return Router
+     */
+    public function get(string $pattern, callable $callback, ?string $name) : Router {
+        # Start route...
+        $route = self::GET . " ";
+        
+        # Add name...
+        if(!empty($name)) {
+            $route = $this->addName($route, $name);
+        }
+
+        # Add Pattern
+        $route = $this->addPattern($route, $pattern);
+
+        # Set route...
+        $this->setRoute($pattern, $callback);
+
         return $this;
-    }   
+    }
 
     /**
      *  Get Matched Pattern

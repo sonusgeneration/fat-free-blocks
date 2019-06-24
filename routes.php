@@ -17,15 +17,15 @@ if(!defined('BLOCKS_KEY')) {
  *
  *  Here we go!
  */
-(Kernel::getRouter())->setRoute('GET /', function () {
+(Kernel::getRouter())->get('/', function () {
     # Sample HTML response...
     $Response = (new HomeController())->ActionHtml();
     $Response->send();
-})->setRoute('GET /json', function () {
+})->get('json', function () {
     # Sample JSON response...
     $Response = (new HomeController())->ActionJson();
     $Response->send($Response::PRETTY_PRINT);
-})->setRoute('GET /xml', function () {
+})->get('xml', function () {
     #Sample XML response...
     $Response = (new HomeController())->ActionXml();
     $Response->send();

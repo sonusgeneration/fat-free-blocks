@@ -30,14 +30,6 @@ defined('FILENAME_ERROR_LOG')
     OR define('FILENAME_ERROR_LOG', "error." . date('Y-m-d') . ".log");
 defined('FILENAME_ROUTES')
     OR define('FILENAME_ROUTES', "routes.php");
-defined('FILENAME_SITE_CONFIG')
-    OR define('FILENAME_SITE_CONFIG', "site.cfg");
-defined('FILENAME_COOKIE_CONFIG')
-    OR define('FILENAME_COOKIE_CONFIG', "cookie.cfg");
-defined('FILENAME_DB_CONFIG')
-    OR define('FILENAME_DATABASE_CONFIG', "database.cfg");
-defined('FILENAME_CACHE_CONFIG')
-    OR define('FILENAME_CACHE_CONFIG', "cache.cfg");
 defined('FILENAME_PREREQUISITES')
     OR define('FILENAME_PREREQUISITES', "prerequisites.php");
 

@@ -34,14 +34,14 @@ final class Cookie {
      *  Class Constructor
      *  @since v1.0.0
      */
-    public function __construct(string $name = "", string $value = "", int $expire = -1) {
+    public function __construct(string $name = "", string $value = "") {
         $Base = Kernel::getCore();
 
         $this->_name = (!empty($name)) ? $name : "";
         $this->_value = (!empty($value)) ? $value : "";
-        $this->_expire = (-1 !== $expire) ? $expire : $Base->get('JAR.expire');
 
         # Set cookie properties from application defaults...
+        $this->_expire = $Base->get('JAR.expire');
         $this->_path = $Base->get('JAR.path');
         $this->_domain = $Base->get('JAR.path');
         $this->_secure = $Base->get('JAR.secure');
@@ -131,6 +131,18 @@ final class Cookie {
     }
 
     /**
+     *  Set Path
+     *  @since v1.0.0
+     *
+     *  @param string $path
+     *  @return Cookie
+     */
+    public function setPath(string $path) : Cookie {
+        $this->_path = $path;
+        return $this;
+    }
+
+    /**
      *  Get Domain
      *  @since v1.0.0
      *
@@ -138,6 +150,18 @@ final class Cookie {
      */
     public function getDomain() : string {
         return $this->_domain;
+    }
+
+    /**
+     *  Set Domain
+     *  @since v1.0.0
+     *
+     *  @param string $domain
+     *  @return Cookie
+     */
+    public function setDomain(string $domain) : Cookie {
+        $this->_domain = $domain;
+        return $this;
     }
 
     /**
@@ -151,6 +175,18 @@ final class Cookie {
     }
 
     /**
+     *  Set Secure
+     *  @since v1.0.0
+     *
+     *  @param bool $secure
+     *  @return Cookie
+     */
+    public function setSecure(bool $secure) : Cookie {
+        $this->_secure = $secure;
+        return $this;
+    }
+
+    /**
      *  Get Http Only
      *  @since v1.0.0
      *
@@ -158,6 +194,43 @@ final class Cookie {
      */
     public function getHttpOnly() : bool {
         return $this->_http_only;
+    }
+
+    /**
+     *  Set Http Only
+     *  @since v1.0.0
+     *
+     *  @param bool $http_only
+     *  @return Cookie
+     */
+    public function setHttpOnly(bool $http_only) : Cookie {
+        $this->_http_only = $http_only;
+        return $this;
+    }
+
+    /**
+     *  Save
+     *  @since v1.0.0
+     */
+    public function save() : void {
+        # Get the core...
+        $Base = Kernel::getCore();
+
+        # Backup the jar...
+        $jar = $Base->get('JAR');
+
+        # Set the new jar and cookie...
+        $Base->set('JAR', [
+            'expire'   => $this->_expire,
+            'path'     => $this->_path,
+            'domain'   => $this->_domain,
+            'secure'   => $this->_secure,
+            'httponly' => $this->_http_only
+        ]);
+        $Base->set('COOKIE.' . $this->_name, $this->_value);
+
+        # Reset the jar to the defaults...
+        $Base->set('JAR', $jar);
     }
  
 }

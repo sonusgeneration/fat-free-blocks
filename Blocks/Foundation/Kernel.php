@@ -44,10 +44,10 @@ final class Kernel extends Prefab {
         $Base = Base::instance();
 
         # Load Application configs
-        $Base->config(ABS_PATH_CONFIG . FILENAME_SITE_CONFIG);
-        $Base->config(ABS_PATH_CONFIG . FILENAME_COOKIE_CONFIG);
-        $Base->config(ABS_PATH_CONFIG . FILENAME_DATABASE_CONFIG);
-        $Base->config(ABS_PATH_CONFIG . FILENAME_CACHE_CONFIG);
+        $files = array_filter(glob(ABS_PATH_CONFIG . "*.{cfg}", GLOB_BRACE), 'is_file');
+        foreach($files as $file) {
+            $Base->config($file);
+        }
         
         # Set system settings
         $Base->mset([

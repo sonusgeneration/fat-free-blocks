@@ -50,9 +50,7 @@ final class ComposerScripts {
         ]));
         
         # Scaffold project directories...
-        $filesystem->createDir("Controllers");
         $filesystem->createDir("Models");
-        $filesystem->createDir("Views");
 
         # Scaffold "tmp" directories...
         $filesystem->createDir("tmp");
@@ -62,12 +60,18 @@ final class ComposerScripts {
 
         # Setup "config" directory and contents...
         $filesystem->createDir("config");
-        $filesystem->copy(self::PACKAGE_PATH . "config/cache.cfg", "config/cache.cfg");
-        $filesystem->copy(self::PACKAGE_PATH . "config/cookie.cfg", "config/cookie.cfg");
-        $filesystem->copy(self::PACKAGE_PATH . "config/database.cfg", "config/database.cfg");
-        $filesystem->copy(self::PACKAGE_PATH . "config/site.cfg", "config/site.cfg");
+        $filesystem->copy(self::PACKAGE_PATH . "config/app.cfg", "config/app.cfg");
 
-        # Copy app files...
+        # Setup "Controllers" directory and contents...
+        $filesystem->createDir("Controllers");
+        $filesystem->copy(self::PACKAGE_PATH . "Controllers/BaseController.php", "Controllers/BaseController.php");
+        $filesystem->copy(self::PACKAGE_PATH . "Controllers/HomeController.php", "Controllers/HomeController.php");
+
+        # Setup "Views" directory and contents...
+        $filesystem->createDir("Views");
+        $filesystem->copy(self::PACKAGE_PATH . "Views/sample-view.html", "Views/sample-view.html");
+
+        # Copy root files...
         $filesystem->copy(self::PACKAGE_PATH . ".htaccess", ".htaccess");
         $filesystem->copy(self::PACKAGE_PATH . "bootstrap.php", "bootstrap.php");
         $filesystem->copy(self::PACKAGE_PATH . "constants.php", "constants.php");
@@ -76,9 +80,6 @@ final class ComposerScripts {
         $filesystem->copy(self::PACKAGE_PATH . "prerequisites.php", "prerequisites.php");
         $filesystem->copy(self::PACKAGE_PATH . "robots.txt", "robots.txt");
         $filesystem->copy(self::PACKAGE_PATH . "routes.php", "routes.php");
-        $filesystem->copy(self::PACKAGE_PATH . "Views/sample-view.html", "Views/sample-view.html");
-        $filesystem->copy(self::PACKAGE_PATH . "Controllers/BaseController.php", "Controllers/BaseController.php");
-        $filesystem->copy(self::PACKAGE_PATH . "Controllers/HomeController.php", "Controllers/HomeController.php");
     }
 
     /**
